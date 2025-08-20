@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Professional Calculator</title>
+  <style>
+    /* Reset and base */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #f5f7fa;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 15px;
+    }
+
+    .calculator {
+      background: #ffffff;
+      width: 280px;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .display {
+      background: #e9ecef;
+      color: #212529;
+      font-size: 2.2rem;
+      padding: 20px 18px;
+      text-align: right;
+      border-bottom: 1px solid #dee2e6;
+      user-select: none;
+      min-height: 60px;
+      letter-spacing: 0.05em;
+      word-wrap: break-word;
+      word-break: break-all;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      padding: 18px 18px 24px;
+    }
+
+    button {
+      background-color: #f1f3f5;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.3rem;
+      color: #212529;
+      padding: 18px 0;
+      cursor: pointer;
+      transition: background-color 0.2s ease, color 0.2s ease;
+      box-shadow: inset 0 0 0 transparent;
+      user-select: none;
+    }
+
+    button:hover {
+      background-color: #dee2e6;
+    }
+
+    button:active {
+      background-color: #ced4da;
+      box-shadow: inset 2px 2px 5px rgba(0,0,0,0.1);
+    }
+
+    button.operator {
+      background-color: #495057;
+      color: #fff;
+    }
+
+    button.operator:hover {
+      background-color: #343a40;
+    }
+
+    button.operator:active {
+      background-color: #212529;
+      box-shadow: inset 2px 2px 5px rgba(0,0,0,0.2);
+    }
+
+    button.equal {
+      background-color: #0d6efd;
+      color: white;
+      grid-column: span 2;
+      font-weight: 600;
+    }
+
+    button.equal:hover {
+      background-color: #0b5ed7;
+    }
+
+    button.equal:active {
+      background-color: #0a58ca;
+      box-shadow: inset 2px 2px 5px rgba(0,0,0,0.25);
+    }
+
+    button.clear {
+      background-color: #fa5252;
+      color: white;
+    }
+
+    button.clear:hover {
+      background-color: #f03e3e;
+    }
+
+    button.clear:active {
+      background-color: #c92a2a;
+      box-shadow: inset 2px 2px 5px rgba(0,0,0,0.25);
+    }
+
+    button.zero {
+      grid-column: span 2;
+      text-align: left;
+      padding-left: 24px;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator" role="application" aria-label="Calculator">
+    <div id="display" class="display" aria-live="polite" aria-atomic="true">0</div>
+    <div class="buttons">
+      <button id="clear" class="clear" aria-label="Clear">C</button>
+      <button class="operator" data-operator="/" aria-label="Divide">÷</button>
+      <button class="operator" data-operator="*" aria-label="Multiply">×</button>
+      <button class="operator" data-operator="-" aria-label="Subtract">−</button>
+
+      <button data-number="7" aria-label="Seven">7</button>
+      <button data-number="8" aria-label="Eight">8</button>
+      <button data-number="9" aria-label="Nine">9</button>
+      <button class="operator" data-operator="+" aria-label="Add">+</button>
+
+      <button data-number="4" aria-label="Four">4</button>
+      <button data-number="5" aria-label="Five">5</button>
+      <button data-number="6" aria-label="Six">6</button>
+      <button data-number="." aria-label="Decimal point">.</button>
+
+      <button data-number="1" aria-label="One">1</button>
+      <button data-number="2" aria-label="Two">2</button>
+      <button data-number="3" aria-label="Three">3</button>
+      <button id="equals" class="equal" aria-label="Equals">=</button>
+
+      <button data-number="0" class="zero" aria-label="Zero">0</button>
+    </div>
+  </div>
+
+  <script>
+    const display = document.getElementById('display');
+    const buttons = document.querySelectorAll('button');
+    let currentInput = '';
+    let operatorSet = false;
+
+    function updateDisplay(value) {
+      display.textContent = value || '0';
+    }
+
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        const number = button.getAttribute('data-number');
+        const operator = button.getAttribute('data-operator');
+        const isClear = button.id === 'clear';
+        const isEquals = button.id === 'equals';
+
+        if (isClear) {
+          currentInput = '';
+          operatorSet = false;
+          updateDisplay(currentInput);
+          return;
+        }
+
+        if (isEquals) {
+          try {
+            // Remove trailing operators before eval
+            while(currentInput && ['+', '-', '*', '/'].includes(currentInput.slice(-1))) {
+              currentInput = currentInput.slice(0, -1);
+            }
+            const result = eval(currentInput);
+            currentInput = String(result);
+            operatorSet = false;
+            updateDisplay(currentInput);
+          } catch {
+            updateDisplay('Error');
+            currentInput = '';
+            operatorSet = false;
+          }
+          return;
+        }
+
+        if (number !== null) {
+          // Prevent multiple decimals in one number segment
+          if (number === '.') {
+            const lastNumber = currentInput.split(/[\+\-\*\/]/).pop();
+            if (lastNumber.includes('.')) return;
+          }
+          currentInput += number;
+          operatorSet = false;
+          updateDisplay(currentInput);
+        }
+
+        if (operator !== null) {
+          if (currentInput === '') return; // don't start with operator
+          if (operatorSet) {
+            currentInput = currentInput.slice(0, -1) + operator;
+          } else {
+            currentInput += operator;
+            operatorSet = true;
+          }
+          updateDisplay(currentInput);
+        }
+      });
+    });
+  </script>
+</body>
+</html>

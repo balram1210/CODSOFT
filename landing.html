@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Creative Landing Page</title>
+  <style>
+    /* Reset */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f0f4f8;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Header & Hero */
+    header {
+      background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1470&q=80') no-repeat center center/cover;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+      padding: 0 20px;
+      position: relative;
+    }
+
+    header::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      z-index: 0;
+    }
+
+    header > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    header h1 {
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+
+    header p {
+      font-size: 1.3rem;
+      margin-bottom: 30px;
+      max-width: 600px;
+      text-align: center;
+    }
+
+    .btn-primary {
+      background-color: #ff6f61;
+      color: white;
+      padding: 15px 35px;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      box-shadow: 0 4px 15px rgba(255,111,97,0.4);
+    }
+
+    .btn-primary:hover {
+      background-color: #ff3b2e;
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.9);
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      padding: 15px 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      font-weight: 600;
+      z-index: 100;
+    }
+
+    nav a {
+      color: #333;
+      font-size: 1rem;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #ff6f61;
+    }
+
+    /* Main content */
+    main {
+      max-width: 1200px;
+      margin: 80px auto 60px;
+      padding: 0 20px;
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    section.card {
+      background: white;
+      padding: 30px 25px;
+      border-radius: 15px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+      flex: 1 1 300px;
+      min-width: 280px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    section.card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 18px 40px rgba(0,0,0,0.15);
+    }
+
+    section.card img.icon {
+      width: 80px;
+      margin-bottom: 20px;
+      filter: drop-shadow(0 1px 2px rgba(0,0,0,0.1));
+    }
+
+    section.card h2 {
+      color: #ff6f61;
+      margin-bottom: 15px;
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+
+    section.card p {
+      color: #555;
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #222;
+      color: #eee;
+      padding: 25px 20px;
+      text-align: center;
+      font-size: 0.9rem;
+      position: relative;
+    }
+
+    footer .social-icons {
+      margin-top: 10px;
+    }
+
+    footer .social-icons a {
+      margin: 0 10px;
+      color: #eee;
+      font-size: 1.4rem;
+      transition: color 0.3s ease;
+      display: inline-block;
+    }
+
+    footer .social-icons a:hover {
+      color: #ff6f61;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2.5rem;
+      }
+      header p {
+        font-size: 1.1rem;
+      }
+
+      nav {
+        gap: 20px;
+      }
+
+      main {
+        flex-direction: column;
+        margin: 60px auto 40px;
+      }
+    }
+  </style>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+  <!-- FontAwesome for social icons -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<nav>
+  <a href="#features">Features</a>
+  <a href="#about">About</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<header>
+  <h1>Your Amazing Product</h1>
+  <p>Innovate your workflow with simplicity and style. Discover the features that make us stand out.</p>
+  <button class="btn-primary">Get Started</button>
+</header>
+
+<main>
+  <section class="card" id="features">
+    <img class="icon" src="https://img.icons8.com/ios-filled/100/ff6f61/settings.png" alt="Features Icon" />
+    <h2>Powerful Features</h2>
+    <p>Our platform includes all the tools you need for productivity and creativity, wrapped in a sleek interface.</p>
+  </section>
+
+  <section class="card" id="about">
+    <img class="icon" src="https://img.icons8.com/ios-filled/100/ff6f61/info.png" alt="About Icon" />
+    <h2>About Us</h2>
+    <p>Driven by passion and innovation, our team works tirelessly to bring you the best experience possible.</p>
+  </section>
+
+  <section class="card" id="contact">
+    <img class="icon" src="https://img.icons8.com/ios-filled/100/ff6f61/phone.png" alt="Contact Icon" />
+    <h2>Contact Us</h2>
+    <p>Questions? Reach out by email or phone. We're here to help you 24/7 with any support you need.</p>
+  </section>
+</main>
+
+<footer>
+  &copy; 2025 Your Amazing Product. All rights reserved.
+  <div class="social-icons" aria-label="Social media links">
+    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+  </div>
+</footer>
+
+</body>
+</html>
+
